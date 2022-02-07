@@ -5,61 +5,71 @@ import Stats from "./Stats";
 function PokeWindow(){
 
 
-    const [isLoading,setIsLoading] = useState(false);
+    const [isLoading,setIsLoading] = useState(true);
     const [error,setError] = useState(false);
 
-    const [searchText,setSearchText] = useState("");
+    const [searchText,setSearchText] = useState("pikachu");
     const [pokemon,setPokemon] = useState({});
 
     const onChangeInput = (e) => {
         setSearchText(e.target.value);
     }
 
-
     const searchPokemon = (e) => {
         e.preventDefault();
-
+        setIsLoading(true);
         fetchPokemon(searchText)
             .then( pokemon => {
+                setIsLoading(false);
                 setPokemon(pokemon);
-                // TODO set error handling
-                //console.log(pokemon);
+                console.log(pokemon);
             });
     }
 
-    async function fetchPokemon(searchText){
-        let url = `https://pokeapi.co/api/v2/pokemon/${searchText}/`;
-        const response = await fetch(url);
-        const data = await response.json();
-        return data;
+     const fetchPokemon = async ()=> {
+
+        try {
+
+            let url = `https://pokeapi.co/api/v2/pokemon/${searchText}/`;
+            const response = await fetch(url);
+            const data = await response.json();
+            setPokemon(data);
+            setError(false);
+            return data;
+
+        } catch (error) {
+            setError(true);
+            setIsLoading(false);
+            console.log(error);
+    
+        }
     }
 
     // TODO useEffect to have pokemon loaded on initial loading of page
 
     useEffect(()=>{
-        setSearchText("pikachu");
-        fetchPokemon(searchText);
+        setIsLoading(true);
+        fetchPokemon().then( data =>{
+            setIsLoading(false);
+            setPokemon(data);
+            console.log(data);
+        });
     },[]);
 
-
-    if(isLoading){
-        return (
-            <i class="fas fa-spinner"></i>
-        );
-    }
-
-    if(pokemon){
         return (
             <div>
                 <form>
-                    <input onChange={onChangeInput} placeholder="pikachu"/>
+                    <input onChange={onChangeInput} value={searchText} placeholder="pikachu"/>
                     <button onClick={(e)=>searchPokemon(e)}>Search</button>
                 </form>
-                <Sprite {...pokemon}/>
-                <Stats {...pokemon}/>
+                { error && <div><p>Pokemon Not Found. Please Try Again.</p></div>}
+                { isLoading && <div><p>Loading...</p></div> }
+                { !isLoading && (!error && <div>
+                                <Sprite pokemon={pokemon}/>
+                                <Stats pokemon={pokemon}/>
+                             </div>)}
             </div>
         );
-    }
     
     
 }
