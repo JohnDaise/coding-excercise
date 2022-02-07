@@ -52,7 +52,7 @@ function PokeWindow(){
         fetchPokemon().then( data =>{
             setIsLoading(false);
             setPokemon(data);
-            console.log(data);
+            // console.log(data);
         });
     },[]);
 
@@ -60,7 +60,7 @@ function PokeWindow(){
             <div>
                 <form>
                     <input onChange={onChangeInput} value={searchText} placeholder="pikachu"/>
-                    <button onClick={(e)=>searchPokemon(e)}>Search</button>
+                    <button className={"btn"} onClick={(e)=>searchPokemon(e)}>Search</button>
                 </form>
                 { error && <div><p>Pokemon Not Found. Please Try Again.</p></div>}
                 { isLoading && <div><p>Loading...</p></div> }
