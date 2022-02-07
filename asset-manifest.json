@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/coding-excercise/static/css/main.7f1e548a.css",
+    "main.js": "/coding-excercise/static/js/main.417feca4.js",
+    "static/js/787.98a64c51.chunk.js": "/coding-excercise/static/js/787.98a64c51.chunk.js",
+    "static/media/logo.svg": "/coding-excercise/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/coding-excercise/index.html",
+    "main.7f1e548a.css.map": "/coding-excercise/static/css/main.7f1e548a.css.map",
+    "main.417feca4.js.map": "/coding-excercise/static/js/main.417feca4.js.map",
+    "787.98a64c51.chunk.js.map": "/coding-excercise/static/js/787.98a64c51.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7f1e548a.css",
+    "static/js/main.417feca4.js"
+  ]
+}
